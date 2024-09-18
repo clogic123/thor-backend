@@ -19,6 +19,12 @@ async def get_foods(request):
     return foods
 
 
+@router.get("foods/{int:food_id}", response=FoodSchema)
+async def get_line(request, food_id: int):
+    food = await Food.objects.aget(id=food_id)
+    return food
+
+
 @router.post("foods", response=FoodSchema)
 async def create_food(request, body: CreateFoodRequestSchema):
     food = await Food.objects.acreate(**body.dict())

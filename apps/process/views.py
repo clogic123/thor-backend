@@ -17,6 +17,12 @@ async def get_processes(request):
     return processes
 
 
+@router.get("processes/{int:process_id}", response=ProcessSchema)
+async def get_line(request, process_id: int):
+    process = await ProcessSchema.prefetched_queryset().aget(id=process_id)
+    return process
+
+
 @router.post("processes", response=ProcessSchema)
 async def create_process(request, body: CreateProcessRequestSchema):
     process = await FoodProcess.objects.acreate(**body.dict())

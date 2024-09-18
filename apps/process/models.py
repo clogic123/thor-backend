@@ -6,7 +6,9 @@ from contrib.django.models.base import BaseDateTimeModel
 class FoodProcess(BaseDateTimeModel):
 
     name = models.CharField("name", max_length=128, null=True, blank=True)
-    food = models.ForeignKey("food.Food", on_delete=models.DO_NOTHING)
+    food = models.ForeignKey(
+        "food.Food", on_delete=models.DO_NOTHING, related_name="processes"
+    )
 
     class Meta:
         db_table = "food_process"

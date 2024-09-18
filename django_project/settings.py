@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "apps.food",
     "apps.process",
+    "apps.line",
 ]
 
 MIDDLEWARE = [
