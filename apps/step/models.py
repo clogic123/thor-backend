@@ -10,7 +10,9 @@ class FoodProcessLineStep(BaseDateTimeModel):
 
     name = models.CharField("name", max_length=128, null=True, blank=True)
     order = models.PositiveSmallIntegerField("order", default=0)
-    next_step = models.ForeignKey("self", null=True, on_delete=models.DO_NOTHING)
+    next_step = models.ForeignKey(
+        "self", null=True, on_delete=models.DO_NOTHING, db_constraint=False
+    )
 
     class Meta:
         db_table = "food_process_line_step"

@@ -42,3 +42,10 @@ async def update_food(request, food_id: int, body: UpdateFoodRequestSchema):
 async def create_food(request, body: CreateFoodRequestSchema):
     food = await Food.objects.acreate(**body.dict())
     return food
+
+
+@router.delete("foods/{int:food_id}")
+async def delete_food(request, food_id: int):
+    food = await Food.objects.aget(id=food_id)
+    await food.adelete()
+    return "OK"

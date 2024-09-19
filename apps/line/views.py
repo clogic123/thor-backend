@@ -42,3 +42,10 @@ async def create_line(request, body: CreateLineRequestSchema):
     line = await FoodProcessLine.objects.acreate(**body.dict())
     line = await LineSchema.prefetched_queryset().aget(id=line.id)
     return line
+
+
+@router.delete("lines/{int:line_id}")
+async def delete_line(request, line_id: int):
+    line = await LineSchema.prefetched_queryset().aget(id=line_id)
+    await line.adelete()
+    return "OK"

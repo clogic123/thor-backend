@@ -42,3 +42,10 @@ async def create_process(request, body: CreateProcessRequestSchema):
     process = await FoodProcess.objects.acreate(**body.dict())
     process = await ProcessSchema.prefetched_queryset().aget(id=process.id)
     return process
+
+
+@router.delete("processes/{int:process_id}")
+async def delete_process(request, process_id: int):
+    process = await FoodProcess.objects.aget(id=process_id)
+    await process.adelete()
+    return "OK"

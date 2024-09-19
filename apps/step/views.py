@@ -37,3 +37,10 @@ async def create_step(request, body: CreateStepRequestSchema):
     step = await FoodProcessLineStep.objects.acreate(**body.dict())
     step = await StepSchema.prefetched_queryset().aget(id=step.id)
     return step
+
+
+@router.delete("steps/{step_id}")
+async def delete_step(request, step_id: int):
+    step = await StepSchema.prefetched_queryset().aget(id=step_id)
+    await step.adelete()
+    return "OK"
