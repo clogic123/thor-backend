@@ -4,7 +4,11 @@ from django.shortcuts import render
 from ninja import Router
 
 from apps.food.models import Food
-from apps.food.schemas import FoodSchema, CreateFoodRequestSchema
+from apps.food.schemas import (
+    FoodSchema,
+    CreateFoodRequestSchema,
+    UpdateFoodRequestSchema,
+)
 
 # Create your views here.
 
@@ -22,6 +26,15 @@ async def get_foods(request):
 @router.get("foods/{int:food_id}", response=FoodSchema)
 async def get_line(request, food_id: int):
     food = await Food.objects.aget(id=food_id)
+    return food
+
+
+@router.patch("foods/{int:food_id}", response=FoodSchema)
+async def update_food(request, food_id: int, body: UpdateFoodRequestSchema):
+    food = await Food.objects.aget(id=food_id)
+    for attr, value in body.dict().items():
+        setattr(food, attr, value)
+    await food.asave()
     return food
 
 

@@ -6,6 +6,7 @@ from apps.step.models import FoodProcessLineStep
 
 
 class StepSchema(Schema):
+    id: int
     name: str
     order: int
     next_step_id: Optional[int]
@@ -19,3 +20,6 @@ class CreateStepRequestSchema(Schema):
     name: str
     order: int
     next_step_id: Optional[int]
+
+
+class UpdateStepRequestSchema(CreateStepRequestSchema): ...

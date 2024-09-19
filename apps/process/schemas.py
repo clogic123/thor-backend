@@ -19,3 +19,6 @@ class ProcessSchema(Schema):
 class CreateProcessRequestSchema(Schema):
     name: str
     food_id: int
+
+
+class UpdateProcessRequestSchema(CreateProcessRequestSchema): ...

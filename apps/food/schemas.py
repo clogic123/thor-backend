@@ -10,3 +10,6 @@ class FoodSchema(Schema):
 class CreateFoodRequestSchema(Schema):
     name: str
     code: str
+
+
+class UpdateFoodRequestSchema(CreateFoodRequestSchema): ...

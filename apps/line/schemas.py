@@ -22,3 +22,6 @@ class CreateLineRequestSchema(Schema):
     order: int
     process_id: int
     food_id: int
+
+
+class UpdateLineRequestSchema(CreateLineRequestSchema): ...

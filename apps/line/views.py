@@ -4,7 +4,11 @@ from django.shortcuts import render
 from ninja import Router
 
 from apps.line.models import FoodProcessLine
-from apps.line.schemas import LineSchema, CreateLineRequestSchema
+from apps.line.schemas import (
+    LineSchema,
+    CreateLineRequestSchema,
+    UpdateLineRequestSchema,
+)
 
 # Create your views here.
 router = Router(tags=["lines"])
@@ -20,6 +24,16 @@ async def get_lines(request):
 @router.get("lines/{int:line_id}", response=LineSchema)
 async def get_line(request, line_id: int):
     line = await LineSchema.prefetched_queryset().aget(id=line_id)
+    return line
+
+
+@router.patch("lines/{int:line_id}", response=LineSchema)
+async def update_line(request, line_id: int, body: UpdateLineRequestSchema):
+    line = await LineSchema.prefetched_queryset().aget(id=line_id)
+    for attr, value in body.dict().items():
+        setattr(line, attr, value)
+
+    await line.asave()
     return line
 
 

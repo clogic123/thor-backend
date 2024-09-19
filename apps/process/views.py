@@ -4,7 +4,11 @@ from django.shortcuts import render
 from ninja import Router
 
 from apps.process.models import FoodProcess
-from apps.process.schemas import ProcessSchema, CreateProcessRequestSchema
+from apps.process.schemas import (
+    ProcessSchema,
+    CreateProcessRequestSchema,
+    UpdateProcessRequestSchema,
+)
 
 # Create your views here.
 router = Router(tags=["processes"])
@@ -20,6 +24,16 @@ async def get_processes(request):
 @router.get("processes/{int:process_id}", response=ProcessSchema)
 async def get_process(request, process_id: int):
     process = await ProcessSchema.prefetched_queryset().aget(id=process_id)
+    return process
+
+
+@router.patch("processes/{int:process_id}", response=ProcessSchema)
+async def update_process(request, process_id: int, body: UpdateProcessRequestSchema):
+    process = await ProcessSchema.prefetched_queryset().aget(id=process_id)
+    for attr, value in body.dict().items():
+        setattr(process, attr, value)
+
+    await process.asave()
     return process
 
 

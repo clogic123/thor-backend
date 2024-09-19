@@ -22,6 +22,16 @@ async def get_step(request, step_id: int):
     return step
 
 
+@router.patch("steps/{step_id}", response=StepSchema)
+async def update_step(request, step_id: int, body: CreateStepRequestSchema):
+    step = await StepSchema.prefetched_queryset().aget(id=step_id)
+    for attr, value in body.dict().items():
+        setattr(step, attr, value)
+
+    await step.asave()
+    return step
+
+
 @router.post("steps", response=StepSchema)
 async def create_step(request, body: CreateStepRequestSchema):
     step = await FoodProcessLineStep.objects.acreate(**body.dict())
