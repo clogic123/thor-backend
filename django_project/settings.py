@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "apps.food",
     "apps.process",
     "apps.line",
+    "apps.step",
 ]
 
 MIDDLEWARE = [

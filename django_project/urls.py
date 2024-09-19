@@ -23,5 +23,6 @@ from django_project.app import app
 app.add_router("v1", "apps.food.views.router")
 app.add_router("v1", "apps.process.views.router")
 app.add_router("v1", "apps.line.views.router")
+app.add_router("v1", "apps.step.views.router")
 
 urlpatterns = [path("admin/", admin.site.urls), path("api/", app.urls)]

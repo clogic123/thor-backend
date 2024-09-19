@@ -18,7 +18,7 @@ async def get_processes(request):
 
 
 @router.get("processes/{int:process_id}", response=ProcessSchema)
-async def get_line(request, process_id: int):
+async def get_process(request, process_id: int):
     process = await ProcessSchema.prefetched_queryset().aget(id=process_id)
     return process
 
