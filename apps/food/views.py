@@ -29,7 +29,7 @@ async def get_line(request, food_id: int):
     return food
 
 
-@router.patch("foods/{int:food_id}", response=FoodSchema)
+@router.put("foods/{int:food_id}", response=FoodSchema)
 async def update_food(request, food_id: int, body: UpdateFoodRequestSchema):
     food = await Food.objects.aget(id=food_id)
     for attr, value in body.dict().items():

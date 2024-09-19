@@ -22,7 +22,7 @@ async def get_step(request, step_id: int):
     return step
 
 
-@router.patch("steps/{step_id}", response=StepSchema)
+@router.put("steps/{step_id}", response=StepSchema)
 async def update_step(request, step_id: int, body: CreateStepRequestSchema):
     step = await StepSchema.prefetched_queryset().aget(id=step_id)
     for attr, value in body.dict().items():

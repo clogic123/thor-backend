@@ -27,7 +27,7 @@ async def get_process(request, process_id: int):
     return process
 
 
-@router.patch("processes/{int:process_id}", response=ProcessSchema)
+@router.put("processes/{int:process_id}", response=ProcessSchema)
 async def update_process(request, process_id: int, body: UpdateProcessRequestSchema):
     process = await ProcessSchema.prefetched_queryset().aget(id=process_id)
     for attr, value in body.dict().items():

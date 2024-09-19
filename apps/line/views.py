@@ -27,7 +27,7 @@ async def get_line(request, line_id: int):
     return line
 
 
-@router.patch("lines/{int:line_id}", response=LineSchema)
+@router.put("lines/{int:line_id}", response=LineSchema)
 async def update_line(request, line_id: int, body: UpdateLineRequestSchema):
     line = await LineSchema.prefetched_queryset().aget(id=line_id)
     for attr, value in body.dict().items():
