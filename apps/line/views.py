@@ -10,6 +10,7 @@ from apps.line.schemas import (
     CreateLineRequestSchema,
     UpdateLineRequestSchema,
 )
+from apps.line.services import line_service
 
 # Create your views here.
 router = Router(tags=["lines"])
@@ -42,7 +43,7 @@ async def update_line(request, line_id: int, body: UpdateLineRequestSchema):
 
 @router.post("lines", response=LineSchema)
 async def create_line(request, body: CreateLineRequestSchema):
-    line = await FoodProcessLine.objects.acreate(**body.dict())
+    line = await line_service.create(body)
     line = await LineSchema.prefetched_queryset().aget(id=line.id)
     return line
 
