@@ -34,6 +34,7 @@ async def update_process(request, process_id: int, body: UpdateProcessRequestSch
         setattr(process, attr, value)
 
     await process.asave()
+    process = await ProcessSchema.prefetched_queryset().aget(id=process_id)
     return process
 
 
