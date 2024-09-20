@@ -24,7 +24,7 @@ async def get_foods(request):
 
 
 @router.get("foods/{int:food_id}", response=FoodSchema)
-async def get_line(request, food_id: int):
+async def get_food(request, food_id: int):
     food = await Food.objects.aget(id=food_id)
     return food
 

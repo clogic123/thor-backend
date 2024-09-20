@@ -1,8 +1,9 @@
 from typing import List
 
 from django.shortcuts import render
-from ninja import Router
+from ninja import Router, Query
 
+from apps.line.filters import LineFilterSchema
 from apps.line.models import FoodProcessLine
 from apps.line.schemas import (
     LineSchema,
@@ -15,8 +16,9 @@ router = Router(tags=["lines"])
 
 
 @router.get("lines", response=List[LineSchema])
-async def get_lines(request):
+async def get_lines(request, filter: LineFilterSchema = Query(...)):
     lines = LineSchema.prefetched_queryset()
+    lines = filter.filter(lines)
     lines = [l async for l in lines]
     return lines
 
