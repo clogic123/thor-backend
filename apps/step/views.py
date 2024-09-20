@@ -31,6 +31,7 @@ async def update_step(request, step_id: int, body: CreateStepRequestSchema):
         setattr(step, attr, value)
 
     await step.asave()
+    step = await StepSchema.prefetched_queryset().aget(id=step_id)
     return step
 
 

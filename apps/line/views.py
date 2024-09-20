@@ -36,6 +36,7 @@ async def update_line(request, line_id: int, body: UpdateLineRequestSchema):
         setattr(line, attr, value)
 
     await line.asave()
+    line = await LineSchema.prefetched_queryset().aget(id=line_id)
     return line
 
 
