@@ -9,6 +9,7 @@ class StepSchema(Schema):
     id: int
     name: str
     order: int
+    line_id: int
     next_step_id: Optional[int]
     enabled: bool
 
@@ -20,6 +21,7 @@ class StepSchema(Schema):
 class CreateStepRequestSchema(Schema):
     name: str
     order: int
+    line_id: int
     next_step_id: Optional[int]
     enabled: bool
 
