@@ -13,6 +13,7 @@ class FoodProcessLineStep(BaseDateTimeModel):
     next_step = models.ForeignKey(
         "self", null=True, on_delete=models.DO_NOTHING, db_constraint=False
     )
+    enabled = models.BooleanField("enabled", default=True)
 
     class Meta:
         db_table = "food_process_line_step"

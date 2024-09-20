@@ -10,6 +10,7 @@ class StepSchema(Schema):
     name: str
     order: int
     next_step_id: Optional[int]
+    enabled: bool
 
     @classmethod
     def prefetched_queryset(cls):
@@ -20,6 +21,7 @@ class CreateStepRequestSchema(Schema):
     name: str
     order: int
     next_step_id: Optional[int]
+    enabled: bool
 
 
 class UpdateStepRequestSchema(CreateStepRequestSchema): ...
