@@ -1,4 +1,9 @@
+from ninja import Schema
 from ninja.errors import HttpError
+
+
+class ErrorSchema(Schema):
+    detail: str
 
 
 class BaseHttpError(HttpError):
