@@ -20,7 +20,7 @@ async def get_steps(request, filter: StepFilterSchema = Query(...)):
 
 @router.get("steps/{step_id}", response=StepSchema)
 async def get_step(request, step_id: int):
-    step = await StepSchema.prefetched_queryset().aget(step_id)
+    step = await StepSchema.prefetched_queryset().aget(id=step_id)
     return step
 
 
