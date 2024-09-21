@@ -33,13 +33,13 @@ async def update_step(request, step_id: int, body: CreateStepRequestSchema):
         id=body.next_step_id
     )
 
+    if body.enabled == False:
+        for previous in step.previous_steps.all():
+            previous.next_step_id = None
+            await previous.asave()
+
     if step.line.process != next_step.line.process:
         raise BadRequestError("같은 프로세스가 아닌 스텝은 연결할 수 없습니다.")
-
-    if next_step.enabled == False:
-        raise BadRequestError(
-            "활성화되지 않은 스텝을 다음 스텝으로 지정할 수 없습니다."
-        )
 
     for attr, value in body.dict().items():
         setattr(step, attr, value)

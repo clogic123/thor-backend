@@ -17,7 +17,11 @@ class FoodProcessLineStep(BaseDateTimeModel):
     )
     step_yield = models.FloatField("yield", default=100)
     next_step = models.ForeignKey(
-        "self", null=True, on_delete=models.DO_NOTHING, db_constraint=False
+        "self",
+        null=True,
+        on_delete=models.DO_NOTHING,
+        db_constraint=False,
+        related_name="previous_steps",
     )
     enabled = models.BooleanField("enabled", default=True)
 
