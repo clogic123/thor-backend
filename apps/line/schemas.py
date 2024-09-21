@@ -9,6 +9,7 @@ class LineSchema(Schema):
     id: int
     name: str
     order: int
+    bom: int
     process: ProcessSchema
     food: FoodSchema
 
@@ -20,6 +21,7 @@ class LineSchema(Schema):
 class CreateLineRequestSchema(Schema):
     name: str
     order: int
+    bom: int
     process_id: int
     food_id: int
 
