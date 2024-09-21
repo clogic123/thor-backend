@@ -2,6 +2,7 @@ from typing import Optional
 
 from ninja import Schema
 
+from apps.line.schemas import LineSchema
 from apps.step.models import FoodProcessLineStep
 
 
@@ -9,6 +10,7 @@ class StepSchema(Schema):
     id: int
     name: str
     order: int
+    line: LineSchema
     line_id: int
     step_yield: int
     next_step_id: Optional[int]
@@ -16,7 +18,9 @@ class StepSchema(Schema):
 
     @classmethod
     def prefetched_queryset(cls):
-        return FoodProcessLineStep.objects.all()
+        return FoodProcessLineStep.objects.select_related(
+            "line__process__food", "line__food"
+        ).all()
 
 
 class CreateStepRequestSchema(Schema):
