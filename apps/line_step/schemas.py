@@ -28,6 +28,7 @@ class CreateLineStepRequestSchema(Schema):
     name: str
     order: int
     line_id: int
+    step_id: int
     step_yield: int
     next_step_id: Optional[int]
     enabled: bool
