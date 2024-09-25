@@ -1,7 +1,7 @@
 from apps.core.constants import Constants
 from apps.line.models import FoodProcessLine
 from apps.line.schemas import CreateLineRequestSchema
-from apps.step.models import FoodProcessLineStep
+from apps.line_step.models import FoodProcessLineStep
 from contrib.django.db.transaction import async_atomic
 
 

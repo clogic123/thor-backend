@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "apps.process",
     "apps.line",
     "apps.step",
+    "apps.line_step",
 ]
 
 MIDDLEWARE = [

@@ -1,35 +1,24 @@
-from typing import Optional
-
 from ninja import Schema
 
-from apps.line.schemas import LineSchema
-from apps.step.models import FoodProcessLineStep
+from apps.process.schemas import ProcessSchema
+from apps.step.models import FoodProcessStep
 
 
 class StepSchema(Schema):
     id: int
     name: str
     order: int
-    line: LineSchema
-    line_id: int
-    step_yield: int
-    next_step_id: Optional[int]
-    enabled: bool
+    process: ProcessSchema
 
     @classmethod
     def prefetched_queryset(cls):
-        return FoodProcessLineStep.objects.select_related(
-            "line__process__food", "line__food"
-        ).prefetch_related("previous_steps")
+        return FoodProcessStep.objects.prefetch_related("process")
 
 
 class CreateStepRequestSchema(Schema):
     name: str
     order: int
-    line_id: int
-    step_yield: int
-    next_step_id: Optional[int]
-    enabled: bool
+    process_id: int
 
 
 class UpdateStepRequestSchema(CreateStepRequestSchema): ...
