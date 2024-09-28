@@ -94,7 +94,7 @@ DATABASES = {
             "foodtech.cxsiqe2yqpn5.ap-northeast-2.rds.amazonaws.com",
         ),
         "USER": os.getenv("DATABASE_USER", "admin"),
-        "PASSWORD": "hXcT1o}RRf1.7n2:]wa(Vmg2hjAY",
+        "PASSWORD": ">hJs?88+1I<mirX$4yJg[v<fG%w?",
         "PORT": os.getenv("DATABASE_PORT", 3306),
         "OPTIONS": {"charset": "utf8mb4"},
     }
