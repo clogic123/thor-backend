@@ -12,7 +12,7 @@ class StepSchema(Schema):
 
     @classmethod
     def prefetched_queryset(cls):
-        return FoodProcessStep.objects.prefetch_related("process")
+        return FoodProcessStep.objects.prefetch_related("process__food")
 
 
 class CreateStepRequestSchema(Schema):
