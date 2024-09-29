@@ -23,4 +23,6 @@ class OpenAPISchema(BaseOpenAPISchema):
         result = super().get_components()
         for k, v in result["schemas"].items():
             v["properties"] = humps.camelize(v["properties"])
+            if "required" in v:
+                v["required"] = [humps.camelize(required) for required in v["required"]]
         return result
