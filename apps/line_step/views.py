@@ -6,6 +6,7 @@ from apps.food.models import Food
 from apps.line_step.filters import StepFilterSchema
 from apps.line_step.models import FoodProcessLineStep
 from apps.line_step.schemas import LineStepSchema, CreateLineStepRequestSchema
+from contrib.django.db.transaction import async_atomic
 from contrib.django.ninja.errors import BadRequestError, ErrorSchema
 
 # Create your views here.
@@ -53,9 +54,9 @@ async def update_line_step(request, step_id: int, body: CreateLineStepRequestSch
 
 @router.post("line-steps", response=LineStepSchema)
 async def create_line_step(request, body: CreateLineStepRequestSchema):
-    step = await FoodProcessLineStep.objects.acreate(**body.dict())
-    step = await LineStepSchema.prefetched_queryset().aget(id=step.id)
-    return step
+    line_step = await FoodProcessLineStep.objects.acreate(**body.dict())
+    line_step = await LineStepSchema.prefetched_queryset().aget(id=line_step.id)
+    return line_step
 
 
 @router.delete("line-steps/{step_id}")

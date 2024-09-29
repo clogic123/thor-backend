@@ -10,7 +10,6 @@ from apps.step.schemas import StepSchema
 class LineStepSchema(Schema):
     id: int
     name: str
-    order: int
     line: LineSchema
     line_id: int
     step: StepSchema
@@ -22,7 +21,7 @@ class LineStepSchema(Schema):
     @classmethod
     def prefetched_queryset(cls):
         return FoodProcessLineStep.objects.select_related(
-            "line__process__food", "line__food"
+            "line__process__food", "line__food", "step__process__food"
         ).prefetch_related("previous_line_steps")
 
 
