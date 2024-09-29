@@ -1,9 +1,10 @@
 from typing import List
 
 from django.shortcuts import render
-from ninja import Router
+from ninja import Router, Query
 
 from apps.line_step.models import FoodProcessLineStep
+from apps.step.filters import StepFilterSchema
 from apps.step.models import FoodProcessStep
 from apps.step.schemas import StepSchema, CreateStepRequestSchema
 
@@ -13,9 +14,9 @@ router = Router(tags=["steps"])
 
 
 @router.get("steps", response=List[StepSchema])
-async def get_steps(request):
+async def get_steps(request, filter: StepFilterSchema = Query(...)):
     steps = StepSchema.prefetched_queryset()
-    # lines = filter.filter(lines)
+    steps = filter.filter(steps)
     steps = [s async for s in steps]
     return steps
 

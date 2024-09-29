@@ -4,6 +4,7 @@ from ninja import Schema
 
 from apps.line.schemas import LineSchema
 from apps.line_step.models import FoodProcessLineStep
+from apps.step.schemas import StepSchema
 
 
 class LineStepSchema(Schema):
@@ -12,6 +13,7 @@ class LineStepSchema(Schema):
     order: int
     line: LineSchema
     line_id: int
+    step: StepSchema
     step_id: int
     step_yield: int
     next_step_id: Optional[int]
@@ -26,7 +28,6 @@ class LineStepSchema(Schema):
 
 class CreateLineStepRequestSchema(Schema):
     name: str
-    order: int
     line_id: int
     step_id: int
     step_yield: int

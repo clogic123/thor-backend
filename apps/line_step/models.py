@@ -8,7 +8,6 @@ from contrib.django.models.base import BaseDateTimeModel
 
 class FoodProcessLineStep(BaseDateTimeModel):
     name = models.CharField("name", max_length=128, null=True, blank=True)
-    order = models.PositiveSmallIntegerField("order", default=0)
     line = models.ForeignKey(
         "line.FoodProcessLine",
         on_delete=models.DO_NOTHING,
