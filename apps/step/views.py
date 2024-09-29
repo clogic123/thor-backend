@@ -6,7 +6,11 @@ from ninja import Router, Query
 from apps.line_step.models import FoodProcessLineStep
 from apps.step.filters import StepFilterSchema
 from apps.step.models import FoodProcessStep
-from apps.step.schemas import StepSchema, CreateStepRequestSchema
+from apps.step.schemas import (
+    StepSchema,
+    CreateStepRequestSchema,
+    UpdateStepRequestSchema,
+)
 
 # Create your views here.
 
@@ -35,7 +39,7 @@ async def create_step(request, body: CreateStepRequestSchema):
 
 
 @router.put("steps/{int:step_id}", response=StepSchema)
-async def update_step(request, step_id: int, body: StepSchema):
+async def update_step(request, step_id: int, body: UpdateStepRequestSchema):
     step = await StepSchema.prefetched_queryset().aget(id=step_id)
     for attr, value in body.dict().items():
         setattr(step, attr, value)
