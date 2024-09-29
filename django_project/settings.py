@@ -12,9 +12,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 from pathlib import Path
-import pymysql
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
-pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +29,7 @@ SECRET_KEY = "django-insecure-l_^3x35s$u26scxme8a%io*wa!_vomif8m69#x3w@rn=k9t05-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["0.0.0.0", "thor-backend.fly.dev"]
 
 
 # Application definition
@@ -85,18 +85,28 @@ ASGI_APPLICATION = "django_project.asgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "NAME": "dev",
+#         "HOST": os.getenv(
+#             "DATABASE_HOST",
+#             "foodtech.cxsiqe2yqpn5.ap-northeast-2.rds.amazonaws.com",
+#         ),
+#         "USER": os.getenv("DATABASE_USER", "admin"),
+#         "PASSWORD": ">hJs?88+1I<mirX$4yJg[v<fG%w?",
+#         "PORT": os.getenv("DATABASE_PORT", 3306),
+#         "OPTIONS": {"charset": "utf8mb4"},
+#     }
+# }
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "dev",
-        "HOST": os.getenv(
-            "DATABASE_HOST",
-            "foodtech.cxsiqe2yqpn5.ap-northeast-2.rds.amazonaws.com",
-        ),
-        "USER": os.getenv("DATABASE_USER", "admin"),
-        "PASSWORD": ">hJs?88+1I<mirX$4yJg[v<fG%w?",
-        "PORT": os.getenv("DATABASE_PORT", 3306),
-        "OPTIONS": {"charset": "utf8mb4"},
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "postgres",
+        "HOST": "db.flhzrtjqnmpxmojmzcpe.supabase.co",
+        "USER": "postgres",
+        "PASSWORD": "2mVlWXT241eizcR2",
+        "PORT": "5432",
     }
 }
 
@@ -143,3 +153,11 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+
+sentry_sdk.init(
+    dsn="https://b7afcd5f15622d8e50f17c6fc757619a@o4508036505862144.ingest.us.sentry.io/4508036506124288",
+    integrations=[DjangoIntegration()],
+    traces_sample_rate=0.0,
+    send_default_pii=True,
+)
