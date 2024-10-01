@@ -37,7 +37,7 @@ async def update_line_step(request, step_id: int, body: CreateLineStepRequestSch
     )
 
     if body.enabled == False:
-        for previous in step.previous_steps.all():
+        for previous in step.previous_line_steps.all():
             previous.next_step_id = None
             await previous.asave()
 
